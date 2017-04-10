@@ -1,40 +1,34 @@
-const CommandRunner = require('../src/lib/CommandRunner');
+const CommandRunner = require("../src/lib/CommandRunner");
 
 let commandRunner;
 let mockCmd;
 let processedMockCmd;
 let GitHub;
 
-describe('commandRunner', function() {
+describe("commandRunner", function() {
   beforeEach(() => {
     Github = {
       //Remember that this will happen async
-      let getResults = function(cmd) {
-        return processedMockCmd
+      getReposForUser: function(cmd) {
+        return mockPromise;
       }
     };
 
     mockCmd = {
-      username: 'griselda',
-      subject: 'repos',
-      query: 'details'
+      username: "griselda",
+      subject: "repos",
+      query: "details"
     };
 
-    processedMockCmd = {
-      username: 'griselda',
-      subject: 'repos',
-      query: 'details',
-      results: 'this is a list of results?'
-    };
+    mockPromise = [];
 
     commandRunner = new CommandRunner();
   });
 
-  it('returns an object', function() {
-    expect(commandRunner.run(mockCmd)).toEqual(processedMockCmd);
+  it("returns a promise", done => {
+    expect(GitHub.getResults).toHaveBeenCalledWith(this.command);
+    done();
   });
 
   //it('')
-
-
 });

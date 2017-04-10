@@ -1,11 +1,14 @@
-const GitHub = 'GitHub';
+const GitHub = "./GitHub";
 
 class CommandRunner {
   constructor() {}
-  run(cmd) {
-    cmd.results = GitHub.getResults(cmd);
 
-    return cmd;
+  run(cmd) {
+    return new Promise((resolve, reject) => {
+      GitHub.getReposForUser(cmd, results => {
+        resolve(results);
+      });
+    });
   }
 }
 
