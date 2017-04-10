@@ -1,4 +1,4 @@
-const GitHub = "./GitHub";
+const GitHub = './GitHub';
 
 class CommandRunner {
   constructor() {}
@@ -7,7 +7,9 @@ class CommandRunner {
 
   getReposForUser(user, callback) {
     //tell github wrapper to grab list based off user
-    GitHub.something(user);
+    //Github.getRepos(user);
+    //format results and return
+
     return [];
   }
 
@@ -30,11 +32,11 @@ class CommandRunner {
     let query = cmd.query;
 
     return new Promise((resolve, reject) => {
-      if (subject === "repos") {
+      if (subject === 'repos') {
         getReposForUser(user, results => {
           resolve(results);
         });
-      } else if (subject === "starred repos") {
+      } else if (subject === 'starred repos') {
         getStarredReposForUser(user, results => {
           resolve(results);
         });
