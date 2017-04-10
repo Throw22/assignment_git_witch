@@ -1,18 +1,20 @@
-const runner = require("./runner");
-const parser = require("./parser");
-const formatter = require("./formatter");
+const runner = require('./lib/runner');
+const parser = require('./lib/parser');
+const formatter = require('./lib/formatter');
 
 class GitWitch {
-  constructor() {}
+  constructor(config = {}) {
+    this.parser = config.parser || parser;
+    this.runner = config.runner || runner;
+    this.formatter = config.formatter || formatter;
+  }
+
   process(input) {
     return new Promise((resolve, reject) => {
-      if (reject) {
-        console.log("rejected");
-      }
-      let parsedObj = this.parser.parse();
+      let parsedObj = this.parser.parse(input);
+
       this.runner.run(parsedObj).then(response => {
-        this.formatter.format(response);
-        resolve();
+        resolve(this.formatter.format(response));
       });
     });
   }
