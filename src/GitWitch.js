@@ -1,7 +1,3 @@
-const runner = require('./lib/runner');
-const parser = require('./lib/parser');
-const formatter = require('./lib/formatter');
-
 class GitWitch {
   constructor(config = {}) {
     this.parser = config.parser || parser;
@@ -11,9 +7,8 @@ class GitWitch {
 
   process(input) {
     return new Promise((resolve, reject) => {
-      let parsedObj = this.parser.parse(input);
-
-      this.runner.run(parsedObj).then(response => {
+      let parsedInput = this.parser.parse(input);
+      this.runner.run(parsedInput).then(response => {
         resolve(this.formatter.format(response));
       });
     });

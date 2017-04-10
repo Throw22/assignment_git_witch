@@ -1,4 +1,5 @@
 const CommandRunner = require('../src/lib/CommandRunner');
+
 let commandRunner;
 let mockCmd;
 let processedMockCmd;
@@ -7,6 +8,7 @@ let GitHub;
 describe('commandRunner', function() {
   beforeEach(() => {
     Github = {
+      //Remember that this will happen async
       let getResults = function(cmd) {
         return processedMockCmd
       }
