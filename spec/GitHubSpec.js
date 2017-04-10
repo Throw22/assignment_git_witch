@@ -1,22 +1,26 @@
-const { getRepos } = require("../src/lib/GitHub");
-let git;
-describe("the Github class return an array", function() {
+const GitHub = require('../src/lib/GitHub');
+let gitMock;
+let gitHub;
+
+describe('GitHub', function() {
   beforeEach(function() {
-    git = {
+    gitMock = {
       repos: {
-        getForUser: function() {
-          return {};
+        getForUser: function(user) {
+          return Promise.resolve(1);
         }
       }
     };
+    gitHub = new GitHub(gitMock);
 
-    spyOn(git.repos, "getForUser");
+    spyOn(gitMock.repos, 'getForUser');
+    //spying on a github object, with repos.getForUser inside
   });
 
-  it("", done => {
-    let user = "throw22";
-    getRepos(user);
-    expect(git.repos.getForUser).toHaveBeenCalled();
+  it('returns a list of repos', done => {
+    let user = 'throw22';
+    gitHub.getRepos(user);
+    expect(gitMock.repos.getForUser).toHaveBeenCalled();
     done();
   });
 });
