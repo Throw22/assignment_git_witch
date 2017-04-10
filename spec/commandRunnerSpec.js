@@ -1,34 +1,74 @@
-const CommandRunner = require("../src/lib/CommandRunner");
+const CommandRunner = require('../src/lib/CommandRunner');
 
 let commandRunner;
-let mockCmd;
-let processedMockCmd;
+let user;
 let GitHub;
 
-describe("commandRunner", function() {
+describe('commandRunner', function() {
   beforeEach(() => {
-    Github = {
-      //Remember that this will happen async
-      getReposForUser: function(cmd) {
-        return mockPromise;
+    GitHub = {
+      getReposForUser: function(user) {
+        return ['first repo', 'second repo'];
+      },
+      getStarredRepos: function(user) {
+        return ['first starred repo', 'second starred repo'];
       }
     };
 
-    mockCmd = {
-      username: "griselda",
-      subject: "repos",
-      query: "details"
-    };
-
-    mockPromise = [];
-
     commandRunner = new CommandRunner();
+    user = 'griselda';
   });
 
-  it("returns a promise", done => {
-    expect(GitHub.getResults).toHaveBeenCalledWith(this.command);
+  describe('gets repos list', function() {
+    let cmd = {
+      username: 'griselda',
+      subject: 'repos',
+      query: 'details'
+    };
+
+    let repoList = ['first repo', 'second repo'];
+
+    it('returns a list of the users repos', done => {
+      expect(commandRunner.run(cmd)).toEqual(repoList);
+      //expect(commandRunner.run().toEqual(repoList);
+      done();
+    });
+  });
+
+  describe('gets count of repos list', function() {
+    let cmd = {
+      username: 'griselda',
+      subject: 'repos',
+      query: 'count'
+    };
+
+    let repoList = ['first repo', 'second repo'];
+
+    it('returns a list of the users repos', done => {
+      //expect(commandRunner.run().toEqual(repoList);
+      done();
+    });
+  });
+
+  describe('gets starred repos list', function() {
+    let cmd = {
+      username: 'griselda',
+      subject: 'starred repos',
+      query: 'details'
+    };
+    let starredRepoList = ['first starred repo', 'second starred repo'];
+    //  expect(commandRunner.GitHub.getStarredRepos(user)).toEqual(starredRepoList);
     done();
   });
 
-  //it('')
+  describe('gets count of starred repos list', function() {
+    let cmd = {
+      username: 'griselda',
+      subject: 'starred repos',
+      query: 'count'
+    };
+    let starredRepoList = ['first starred repo', 'second starred repo'];
+    //  expect(commandRunner.GitHub.getStarredRepos(user)).toEqual(starredRepoList);
+    done();
+  });
 });
