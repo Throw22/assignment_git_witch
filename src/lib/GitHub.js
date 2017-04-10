@@ -1,14 +1,15 @@
-const Git = require("github");
+const Git = require('github');
 var gitHubPackage = new Git();
 
 class GitHub {
   constructor(git) {
-    this.name = "formattednk";
     this.gitHubPackage = git || gitHubPackage;
   }
 
   getStarredRepos(user) {
-    //return Git.activity.getStarredReposForUser(user);
+    return this.gitHubPackage.activity.getStarredReposForUser({
+      username: user
+    });
   }
 
   getRepos(user) {
